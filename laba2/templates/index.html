@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</head>
+  <style type="text/css">
+    div.container{
+      background: url(/media/body.jpg);
+      background-size: cover;
+    }</style>
+	<body>
+        <div class="container" >
+            <h1 style="text-align:right;">Лабораторная работа №2</h1>
+
+            <h2 style="text-align:center;">Успеваемость студентов ТУСУРа</h2>
+            <table class="table table-hover">
+                <thead>
+                <tr BGCOLOR="#F5F5DC">
+                  <th>#</th>
+                  <th>Имя</th>
+                  <th>Email</th>
+                  <th>Номер группы</th>
+                  {% for subj in subjects %}
+                    <th>{{subj.name}} ({{subj.hours}} ч)</th>
+                  {% endfor %}
+                
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for student in students_statistics %}
+                        <tr >
+                            <th scope="row">{{student.id}}</th>
+                            <td>{{student.name}}</td>
+                            <td>{{student.email}}</td>
+                            <td>{{student.group_number}}</td>
+                            {% for score in student.scores %}
+                              <td>{{score}}</td>
+                            {% endfor %}
+
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <!-- < --><!-- h4>Отличники:{{excellent_students}}</h4>
+            <h4>Отчислить:{{bad_students}}</h4> -->
+        </div>
+	</body>
+</html>
