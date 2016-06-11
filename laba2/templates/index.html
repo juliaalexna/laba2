@@ -25,8 +25,9 @@
                   <th>Email</th>
                   <th>Номер группы</th>
                   {% for subj in subjects %}
-                    <th>{{subj.name}} ({{subj.hours}} ч)</th>
+                    <th><a href='addsubj.html?subj={{subj.id}}'>{{subj.name}} ({{subj.hours}} ч)</a></th>
                   {% endfor %}
+                  <th><a href='addsubj.html'>+</a></th>
                 
                   </tr>
                 </thead>
