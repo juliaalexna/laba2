@@ -16,8 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
-from .views import IndexView
-from .views import  Addsubj
+from .views import IndexView,AddSubj,AddStudent,AddScore
 
 
 urlpatterns = [
@@ -25,5 +24,7 @@ urlpatterns = [
     url(r'^$', IndexView.as_view()),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
         {'document_root': settings.STATIC_DOC_ROOT }),
-    url(r'^addsubj.html$',Addsubj, name='addsubj')
+    url(r'^addsubj.html$',AddSubj, name='addsubj'),
+    url(r'^addstud.html$',AddStudent, name='addstud'),
+    url(r'^addscore.html$',AddScore, name='addscore')
 ]

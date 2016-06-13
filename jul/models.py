@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class Student (models.Model):
 	name = models.CharField(max_length=30)
-	email = models.EmailField(blank=True)
+	email = models.EmailField()
 	group_number = models.IntegerField()
 	def __str__(self):
 		return self.name
@@ -22,7 +22,8 @@ class Score (models.Model):
 	stud_id = models.ForeignKey(Student) 
 	subj_id = models.ForeignKey(Subject) 
 	score = models.IntegerField()
-
+	class Meta:
+		unique_together = ('stud_id', 'subj_id')
 
 #Student.objects.create(name = 'K', email = 're@mail.ru', group_number = 724)
 #Student.objects.create(name = 'L', email = 'LOL@mail.ru', group_number = 724)

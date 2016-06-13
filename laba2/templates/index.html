@@ -14,7 +14,7 @@
     }</style>
 	<body>
         <div class="container" >
-            <h1 style="text-align:right;">Лабораторная работа №2</h1>
+            <h1 style="text-align:right;">Лабораторная работа №3</h1>
 
             <h2 style="text-align:center;">Успеваемость студентов ТУСУРа</h2>
             <table class="table table-hover">
@@ -35,19 +35,20 @@
                     {% for student in students_statistics %}
                         <tr >
                             <th scope="row">{{student.id}}</th>
-                            <td>{{student.name}}</td>
+                            <td><a href='addstud.html?stud={{student.id}}'>{{student.name}}</a></td>
                             <td>{{student.email}}</td>
                             <td>{{student.group_number}}</td>
                             {% for score in student.scores %}
-                              <td>{{score}}</td>
-                            {% endfor %}
+                              <td><a href='addscore.html?stud={{student.id}}&subj={{score.id}}'> {{score.score}} </a></td>
 
+                            {% endfor %}
+                          <td></td>
                         </tr>
                     {% endfor %}
+                     <td><a href='addstud.html'> + </a></td>
+
                 </tbody>
             </table>
-            <!-- < --><!-- h4>Отличники:{{excellent_students}}</h4>
-            <h4>Отчислить:{{bad_students}}</h4> -->
         </div>
 	</body>
 </html>
