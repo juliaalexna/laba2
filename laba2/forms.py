@@ -2,7 +2,7 @@ from django import forms
  
 class SubForm(forms.Form):
     subject = forms.CharField(label='Название предмета', max_length=256, required=True)
-    hours = forms.IntegerField(label='Кол-во часов', min_value=0)
+    hours = forms.IntegerField(label='Кол-во часов', min_value=1)
     sid = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
 class StudentForm(forms.Form):
@@ -14,7 +14,7 @@ class StudentForm(forms.Form):
 class AddScoreForm(forms.Form):
 	stud_id = forms.CharField(label='Имя студента', widget=forms.TextInput(attrs={'readonly':'readonly'})) 
 	subj_id = forms.CharField(label='Название предмета', widget=forms.TextInput(attrs={'readonly':'readonly'})) 
-	score = forms.IntegerField(min_value=0,required=True)
+	score = forms.IntegerField(label='Оценка', min_value=0, max_value=5, required=True)
 	sid =forms.IntegerField(widget=forms.HiddenInput(),required=False)
 	stid =forms.IntegerField(widget=forms.HiddenInput(),required=False)
 

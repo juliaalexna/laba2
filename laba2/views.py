@@ -23,22 +23,24 @@ def AddSubj(request):
 		form = SubForm(initial={'subject' : name, 'hours': hours, 'sid':sid})
 	else:
 		form = SubForm(request.POST)
-	if form.is_valid():
-		subject = form.cleaned_data['subject']
-		hours = form.cleaned_data['hours']
-		sid = form.cleaned_data['sid']
-		if request.POST.get('Add','') == 'Add':
-			sub = Subject.objects.create(sub_name = subject, sub_hours = hours)
-		if request.POST.get('Save','') == 'Save':
-			ss = Subject(id = sid, sub_name = subject, sub_hours = hours)
-			sub = ss.save()
-		if request.POST.get('Delete','') == 'Delete':
-			ss = Subject(id=sid, sub_name = subject, sub_hours = hours)
-			sub = ss.delete()
+		if form.is_valid():
+			subject = form.cleaned_data['subject']
+			hours = form.cleaned_data['hours']
+			sid = form.cleaned_data['sid']
+			if request.POST.get('Add','') == 'Add':
+				sub = Subject.objects.create(sub_name = subject, sub_hours = hours)
+			if request.POST.get('Save','') == 'Save':
+				ss = Subject(id = sid, sub_name = subject, sub_hours = hours)
+				sub = ss.save()
+			if request.POST.get('Delete','') == 'Delete':
+				ss = Subject(id=sid, sub_name = subject, sub_hours = hours)
+				sub = ss.delete()
 
 
 
-		return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/')
+		else:
+			editadd=request.POST.get('Add',request.POST.get('Save',request.POST.get('Delete','')))
 	return render(request, 'addsubj.html', {'form': form, 'submit': editadd})
 
 def AddStudent(request):
@@ -59,21 +61,25 @@ def AddStudent(request):
 		form = StudentForm(initial={'name' : name, 'email': email, 'group_number' : group, 'stid':stid})
 	else:
 		form = StudentForm(request.POST)
-	if form.is_valid():
-		name = form.cleaned_data['name']
-		email = form.cleaned_data['email']
-		group = form.cleaned_data['group_number']
-		stid = form.cleaned_data['stid']
-		if request.POST.get('Add','') == 'Add':
-			st = Student.objects.create(name = name, email = email, group_number = group)
-		if request.POST.get('Save','') == 'Save':
-			ss = Student(id=stid, name = name, email = email, group_number = group)
-			st = ss.save()
-		if request.POST.get('Delete','') == 'Delete':
-			ss = Student(id=stid, name = name, email = email, group_number = group)
-			st = ss.delete()
+		if form.is_valid():
+			name = form.cleaned_data['name']
+			email = form.cleaned_data['email']
+			group = form.cleaned_data['group_number']
+			stid = form.cleaned_data['stid']
+			if request.POST.get('Cancel','') == 'Cancel':
+				return HttpResponseRedirect('/')
+			if request.POST.get('Add','') == 'Add':
+				st = Student.objects.create(name = name, email = email, group_number = group)
+			if request.POST.get('Save','') == 'Save':
+				ss = Student(id=stid, name = name, email = email, group_number = group)
+				st = ss.save()
+			if request.POST.get('Delete','') == 'Delete':
+				ss = Student(id=stid, name = name, email = email, group_number = group)
+				st = ss.delete()
 
-		return HttpResponseRedirect('/')
+			return HttpResponseRedirect('/')
+		else:
+			editadd=request.POST.get('Add',request.POST.get('Save',request.POST.get('Delete','')))
 	return render(request, 'addstud.html', {'form': form, 'submit': editadd})
 
 def AddScore(request):
@@ -104,26 +110,32 @@ def AddScore(request):
 
 	else:
 		form = AddScoreForm(request.POST)
-	if form.is_valid():
-		score = form.cleaned_data['score']
-		stud_id = form.cleaned_data['stud_id']
-		subj_id = form.cleaned_data['subj_id']
-		sid = form.cleaned_data['sid']
-		stid = form.cleaned_data['stid']
-		stud = Student.objects.filter(id = stid)
-		subj = Subject.objects.filter(id = sid)
-		if request.POST.get('Add','') == 'Add':
-			st = Score.objects.create(stud_id=stud[0], subj_id=subj[0], score = score)
-		if request.POST.get('Save','') == 'Save':
-			sc = Score.objects.filter(stud_id=stud[0], subj_id=subj[0])
-			sc0 = sc[0]
-			sc0.score = score
-			st = sc0.save()
-		if request.POST.get('Delete','') == 'Delete':
-			sc = Score.objects.filter(stud_id=stud[0], subj_id=subj[0])
-			sc0 = sc[0]
-			st = sc0.delete()
-		return HttpResponseRedirect('/')
+		if form.is_valid():
+			score = form.cleaned_data['score']
+			stud_id = form.cleaned_data['stud_id']
+			subj_id = form.cleaned_data['subj_id']
+			sid = form.cleaned_data['sid']
+			stid = form.cleaned_data['stid']
+			stud = Student.objects.filter(id = stid)
+			subj = Subject.objects.filter(id = sid)
+			if request.POST.get('Cancel','') == 'Cancel':
+				return HttpResponseRedirect('/')
+			if request.POST.get('Add','') == 'Add':
+				st = Score.objects.create(stud_id=stud[0], subj_id=subj[0], score = score)
+			if request.POST.get('Save','') == 'Save':
+				sc = Score.objects.filter(stud_id=stud[0], subj_id=subj[0])
+				sc0 = sc[0]
+				sc0.score = score
+				st = sc0.save()
+			if request.POST.get('Delete','') == 'Delete':
+				sc = Score.objects.filter(stud_id=stud[0], subj_id=subj[0])
+				sc0 = sc[0]
+				st = sc0.delete()
+			return HttpResponseRedirect('/')
+		else:
+			editadd=request.POST.get('Add',request.POST.get('Save',request.POST.get('Delete','')))
+
+			return render(request, 'addscore.html', {'form': form, 'submit': editadd, 'error': 'Неврные данные'})	
 	return render(request, 'addscore.html', {'form': form, 'submit': editadd})
 
 
@@ -149,7 +161,7 @@ class Statistics:
 
 	def GetList():
 		spisok = []
-		st = Student.objects.all()
+		st = Student.objects.all().order_by('id')
 		for s in st:
 			studs = {'id': s.id,'name' : s.name, 'email' :s.email,'group_number' : s.group_number, 'scores'  : []}
 			for subj in Statistics.GetListSubj():

@@ -10,6 +10,7 @@
   <style type="text/css">
     div.container{
       background: url(/media/body.jpg);
+      width: 100%;
       background-size: cover;
     }</style>
 	<body>
@@ -25,9 +26,9 @@
                   <th>Email</th>
                   <th>Номер группы</th>
                   {% for subj in subjects %}
-                    <th><a href='addsubj.html?subj={{subj.id}}'>{{subj.name}} ({{subj.hours}} ч)</a></th>
+                    <th><a href='addsubj.html?subj={{subj.id}}' title='Редактировать/удалить данные о предмете'>{{subj.name}} ({{subj.hours}} ч)</a></th>
                   {% endfor %}
-                  <th><a href='addsubj.html'>+</a></th>
+                  <th><a href='addsubj.html' title='Добавить предмет'>+</a></th>
                 
                   </tr>
                 </thead>
@@ -35,17 +36,26 @@
                     {% for student in students_statistics %}
                         <tr >
                             <th scope="row">{{student.id}}</th>
-                            <td><a href='addstud.html?stud={{student.id}}'>{{student.name}}</a></td>
+                            <td><a href='addstud.html?stud={{student.id}}' title='Редактировать/удалить данные о студенте'>{{student.name}}</a></td>
                             <td>{{student.email}}</td>
                             <td>{{student.group_number}}</td>
                             {% for score in student.scores %}
-                              <td><a href='addscore.html?stud={{student.id}}&subj={{score.id}}'> {{score.score}} </a></td>
+                              <td><a href='addscore.html?stud={{student.id}}&subj={{score.id}}' title='Добавить/изменить оценку'> {{score.score}} </a></td>
 
                             {% endfor %}
                           <td></td>
                         </tr>
                     {% endfor %}
-                     <td><a href='addstud.html'> + </a></td>
+                    <tr >
+                     <td><a href='addstud.html' title='Добавить студента'> + </a></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     {% for subj in subjects %}
+                              <td></td>
+
+                            {% endfor %}
+                            </tr>
 
                 </tbody>
             </table>

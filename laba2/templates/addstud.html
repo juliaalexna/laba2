@@ -1,5 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	</head>
+  <style type="text/css">
+    div.container{
+      background: url(/media/body.jpg);
+      background-size: contain;
+      width: 100%;
+      padding: 40px;
+    }</style>
+	<body>
+        <div class="container" >
 <form action='addstud.html' method='POST'>{% csrf_token %}
 {{ form.as_p }}
 <input type='submit' name='{{ submit }}' value='{{ submit }}' />
+{% if submit == 'Save' %}
 <input type='submit' name='Delete' value='Delete' />
+{% endif %}
+<input type='submit' name='Cancel' value='Cancel' />
+{% if error %}
+<p> {{ error }} </p>
+{% endif %}	
+</form>
+</div>
+</body>
+</html>
 </form>
